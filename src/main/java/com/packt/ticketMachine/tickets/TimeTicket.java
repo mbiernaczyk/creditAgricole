@@ -4,14 +4,14 @@ package com.packt.ticketMachine.tickets;
  * Created by Drakles on 13.09.2017.
  */
 public class TimeTicket extends Ticket {
-    //private int time;
+
     private TypeOfTimeTicket typeOfTimeTicket;
 
     public enum TypeOfTimeTicket {
-        HALFHOUR("Bilet 30 minutowy",Prices.getTime30Minutes()),
-        HOUR("Bilet 60 minutowy",Prices.getTime60Minutes()),
-        ONEANDHALFHOUR("Bilet 90 minutowy",Prices.getTime90Minutes()),
-        TWENTYFOURHOURS("Bilet 24 godzinny",Prices.getTime24Hours());
+        HALFHOUR("bilet 30 minutowy",Prices.getTime30Minutes()),
+        HOUR("bilet 60 minutowy",Prices.getTime60Minutes()),
+        ONEANDHALFHOUR("bilet 90 minutowy",Prices.getTime90Minutes()),
+        TWENTYFOURHOURS("bilet 24 godzinny",Prices.getTime24Hours());
 
         private final String name;
         private final double price;

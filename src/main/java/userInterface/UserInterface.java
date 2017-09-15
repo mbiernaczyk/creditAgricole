@@ -1,6 +1,7 @@
 package userInterface;
 
 import com.packt.ticketMachine.tickets.Prices;
+import com.packt.ticketMachine.tickets.TimeTicket;
 
 import java.util.Scanner;
 
@@ -55,10 +56,10 @@ public class UserInterface {
     private void printTimeTickets() {
         System.out.println("Wybrano bilety czasowe");
 
-        System.out.println("Wybierz 1 aby wybrać bilet 30 minutowy " + Prices.getTime30Minutes() + "zł");
-        System.out.println("Wybierz 2 aby wybrać bilet 60 minutowy " + Prices.getTime60Minutes() + "zł");
-        System.out.println("Wybierz 3 aby wybrać bilet 90 minutowy " + Prices.getTime90Minutes() + "zł");
-        System.out.println("Wybierz 4 aby wybrać bilet 24 godzinny " + Prices.getTime24Hours() + "zł");
+        System.out.println("Wybierz 1 aby wybrać"+ TimeTicket.TypeOfTimeTicket.HALFHOUR.getName() + Prices.getTime30Minutes() + "zł");
+        System.out.println("Wybierz 2 aby wybrać"+ TimeTicket.TypeOfTimeTicket.HOUR.getName() + Prices.getTime60Minutes() + "zł");
+        System.out.println("Wybierz 3 aby wybrać bilet 90 minutowy"+ TimeTicket.TypeOfTimeTicket.ONEANDHALFHOUR.getName() + Prices.getTime90Minutes() + "zł");
+        System.out.println("Wybierz 4 aby wybrać bilet 24 godzinny"+ TimeTicket.TypeOfTimeTicket.TWENTYFOURHOURS.getName() + Prices.getTime24Hours() + "zł");
 
     }
 
