@@ -21,6 +21,13 @@ public class UserInterface {
             switch (in.nextInt()) {
                 case 1:
                     printTimeTickets();
+
+                    int choose = in.nextInt();
+
+                    if(choose >= 1 && choose <= 4) {
+
+                        userChooseTimeTicket(choose);
+                    }
                     break;
                 case 2:
                     printSingleTickets();
@@ -31,6 +38,10 @@ public class UserInterface {
             }
 
         }
+    }
+
+    private void userChooseTimeTicket(int choose) {
+        System.out.println();
     }
 
     private void printSingleTickets() {
