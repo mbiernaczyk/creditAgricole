@@ -8,8 +8,8 @@ public class SingleTicket extends Ticket {
     private TypeOfSingleTicket type;
 
     public enum TypeOfSingleTicket{
-        NORMAL("bilet normalny",Prices.getSingleNormal()),
-        SPECIAL("bilet specjalny",Prices.getSingleSpecial()),;
+        NORMAL(" bilet normalny ",Prices.getSingleNormal()),
+        SPECIAL(" bilet specjalny ",Prices.getSingleSpecial()),;
 
         private final String name;
         private final double price;
