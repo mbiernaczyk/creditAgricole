@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a89b8e0e-4f88-4701-9ad6-0eafa883a93a" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/Main.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/packt/ticketMachine/tickets/TimeTicket.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/userInterface/UserInterface.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Main.java" afterPath="$PROJECT_DIR$/src/main/java/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/packt/ticketMachine/tickets/TimeTicket.java" afterPath="$PROJECT_DIR$/src/main/java/com/packt/ticketMachine/tickets/TimeTicket.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/userInterface/UserInterface.java" afterPath="$PROJECT_DIR$/src/main/java/userInterface/UserInterface.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="creditAgricole.iws" />
     <ignored path=".idea/workspace.xml" />
