@@ -141,12 +141,10 @@ public class UserInterface {
                             for (int i = 0; i < quantityOfReliefTickets; i++) {
                                 cart.addTicket(new TimeTicket(true, choose));
                             }
-
                         }
                         for (int i = 0; i < totalQuantityOfTickets; i++) {
                             cart.addTicket(new TimeTicket(false, choose));
                         }
-
                         System.out.println("Dodawno do koszyka");
                     } else throw new Exception("Wymagana ilość biletów nie jest dostępna");
                     break;
@@ -156,12 +154,10 @@ public class UserInterface {
                             for (int i = 0; i < quantityOfReliefTickets; i++) {
                                 cart.addTicket(new TimeTicket(true, choose));
                             }
-
                         }
                         for (int i = 0; i < totalQuantityOfTickets; i++) {
                             cart.addTicket(new TimeTicket(false, choose));
                         }
-
                         System.out.println("Dodawno do koszyka");
                     } else throw new Exception("Wymagana ilość biletów nie jest dostępna");
                     break;
@@ -171,12 +167,10 @@ public class UserInterface {
                             for (int i = 0; i < quantityOfReliefTickets; i++) {
                                 cart.addTicket(new TimeTicket(true, choose));
                             }
-
                         }
                         for (int i = 0; i < totalQuantityOfTickets; i++) {
                             cart.addTicket(new TimeTicket(false, choose));
                         }
-
                         System.out.println("Dodawno do koszyka");
                     } else throw new Exception("Wymagana ilość biletów nie jest dostępna");
                     break;
@@ -186,12 +180,10 @@ public class UserInterface {
                             for (int i = 0; i < quantityOfReliefTickets; i++) {
                                 cart.addTicket(new TimeTicket(true, choose));
                             }
-
                         }
                         for (int i = 0; i < totalQuantityOfTickets; i++) {
                             cart.addTicket(new TimeTicket(false, choose));
                         }
-
                         System.out.println("Dodawno do koszyka");
                     } else throw new Exception("Wymagana ilość biletów nie jest dostępna");
                     break;
