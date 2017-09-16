@@ -21,7 +21,6 @@ public class UserInterface {
     }
 
     public void start() {
-        System.out.println("Witom Pana użytkownika\n");
 
         while (true) {
             displayMenu();
@@ -71,6 +70,7 @@ public class UserInterface {
                         break;
 
                     case 4:
+                        System.out.println("Dziękujemy za skorzystanie z naszych usług");
                         cart.removeAllTickets();
                         break;
 
@@ -176,7 +176,7 @@ public class UserInterface {
                         for (int i = 0; i < totalQuantityOfTickets; i++) {
                             cart.addTicket(new TimeTicket(false, choose));
                         }
-                        System.out.println("Dodawno do koszyka");
+                        System.out.println("Dodawno do koszyka\n");
                     } else throw new Exception("Wymagana ilość biletów nie jest dostępna");
                     break;
 
@@ -190,7 +190,7 @@ public class UserInterface {
                         for (int i = 0; i < totalQuantityOfTickets; i++) {
                             cart.addTicket(new TimeTicket(false, choose));
                         }
-                        System.out.println("Dodawno do koszyka");
+                        System.out.println("Dodawno do koszyka\n");
                     } else throw new Exception("Wymagana ilość biletów nie jest dostępna");
                     break;
             }
@@ -241,6 +241,7 @@ public class UserInterface {
 
     private void displayMenu() {
 
+        System.out.println("Menu główne \n");
         System.out.println("wybierz 0 aby wyświetlić koszyk");
         System.out.println("Wybierz 1 aby wybrać bilet czasowy");
         System.out.println("Wybierz 2 aby wybrać bilety jednorazowe");

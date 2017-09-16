@@ -48,7 +48,14 @@ public class Cart {
     }
 
     public void displaySumToPay() {
-        System.out.format("%s %.2f %s %n", "Do zapłaty ", calculateSum() ,"zł");
+        System.out.format("%s %.2f %s %n", "Do zapłaty ", calculateSum() ,"zł\n");
 
+    }
+
+    public void printAllTickets() {
+        for (Ticket ticket : ticketsList) {
+            System.out.format("%s %n", ticket.getName());
+        }
+        System.out.println("Proszę odebrać bilety");
     }
 }

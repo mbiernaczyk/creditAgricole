@@ -23,9 +23,11 @@ public class Payment {
 
             double coinRecived = coinIn.nextDouble();
 
-            if(recognized(coinRecived) && cashToPay > 0){
+            if(recognized(coinRecived)){
                 cashToPay -= coinRecived;
-                System.out.format("%s %.2f \n","Pozostało do zapłaty ",cashToPay);
+                if(cashToPay >= 0) {
+                    System.out.format("%s %.2f \n", "Pozostało do zapłaty ", cashToPay);
+                }
             } else if( coinRecived == 0) {
                 userNotResigned = false;
                 System.out.println("Zwrot monet - odbierz wrzucone monety");
@@ -37,12 +39,21 @@ public class Payment {
             }
 
         }
+        cart.printAllTickets();
+        if(cashToPay<0){
+            giveChangeToUser(cashToPay*-1);
+        }
+        System.out.println("Dziękujemy za skorzystanie z naszych usług \n");
+    }
+
+    private void giveChangeToUser(double cashToChange) {
+
     }
 
     private void notRecognizedCoin() {
         System.out.println("Nie rozpoznano monety");
         System.out.println("Pamietaj że automat przyjmuje tylko monety 10 gr 20 gr 50 gr 1 zł 2 zł 5 zł");
-        System.out.println("symbolizowane przez liczby: 0.1 0.2 0.5 1 2 5");
+        System.out.println("symbolizowane przez liczby: 0,1 0,2 0,5 1 2 5");
 
         throwAwayReceivedCoin();
     }
