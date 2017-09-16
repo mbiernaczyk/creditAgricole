@@ -12,20 +12,29 @@ import java.util.Scanner;
  */
 public class UserInterface {
 
+    private Cart cart;
+
+    public UserInterface(Cart cart) {
+        this.cart = cart;
+    }
+
     public void start() {
-        System.out.println("Witom Pana użytkownika");
+        System.out.println("Witom Pana użytkownika\n");
 
         boolean stopWorking = false;
         while (!stopWorking) {
-            displaymenu();
+            displayMenu();
 
             Scanner in = new Scanner(System.in);
 
             try {
 
-                int choose =  in.nextInt();
-                if(choose == 1 || choose == 2) {
+                int choose = in.nextInt();
                     switch (choose) {
+
+                        case 0:
+                            cart.displayCart();
+                            break;
 
                         case 1:
                             displayTimeTickets();
@@ -34,9 +43,10 @@ public class UserInterface {
 
                             if (choose >= 1 && choose <= 4) {
 
-                                userChooseTimeTicket(choose);
+                                addTimeTicketToCart(getTotalQuantityFromUser(), getQuantityOfReliefTicketsFromUser(), choose);
+
                             } else {
-                                throw new InvalidArgumentException(new String[]{"Nie poprawna wartość"});
+                                throw new InvalidArgumentException(new String[]{"Podano niepoprawną wartość"});
                             }
                             break;
 
@@ -45,17 +55,26 @@ public class UserInterface {
 
                             choose = in.nextInt();
 
-                            if(choose == 1 || choose == 2){
-                                userChooseSingleTicket(choose);
-                            }else {
-                                throw new InvalidArgumentException(new String[]{"Nie poprawna wartość"});
+                            if (choose == 1 || choose == 2) {
+                                addSingleTicketToCart(getTotalQuantityFromUser(), getQuantityOfReliefTicketsFromUser(), choose);
+
+                            } else {
+                                throw new InvalidArgumentException(new String[]{"Podano niepoprawną wartość"});
                             }
                             break;
 
+                        case 3:
+                            //TO DO PŁĄTNOŚC
+                            break;
+
+                        case 4:
+                            cart.removeAllTickets();
+                            stopWorking = true;
+                            break;
+
+                        default:
+                        throw new InvalidArgumentException(new String[]{"Podano niepoprawną wartość"});
                     }
-                }else {
-                    throw new InvalidArgumentException(new String[]{"Nie poprawna wartość"});
-                }
             } catch (InvalidArgumentException e) {
                 System.out.println(e.getRealMessage());
                 System.out.println("Spróbuj ponownie");
@@ -64,16 +83,49 @@ public class UserInterface {
         }
     }
 
-    private void userChooseSingleTicket(int choose) {
+    private void addSingleTicketToCart(int totalQuantity, int quantityOfReliefTickets, int choose) {
+        try {
+            if (quantityOfReliefTickets > 0) {
+                for (int i = 0; i < quantityOfReliefTickets; i++) {
+                    cart.addTicket(new SingleTicket(true, choose));
+                }
+            }
+            for (int i = 0; i < totalQuantity - quantityOfReliefTickets; i++) {
+                cart.addTicket(new SingleTicket(false, choose));
+            }
+
+            System.out.println("Dodawno do koszyka");
+
+        } catch (IllegalArgumentException e) {
+            System.out.println("Błąd systemu - " + e.getMessage() + " skontaktuj się z obsługą techniczną");
+        }
     }
 
-    private void userChooseTimeTicket(int choose) {
 
+    private void addTimeTicketToCart(int totalQuantityOfTickets, int quantityOfReliefTickets, int choose) {
 
+        try {
+            if (quantityOfReliefTickets > 0) {
+                for (int i = 0; i < quantityOfReliefTickets; i++) {
+                    cart.addTicket(new TimeTicket(true, choose));
+                }
+                for (int i = 0; i < totalQuantityOfTickets - quantityOfReliefTickets; i++) {
+                    cart.addTicket(new TimeTicket(false, choose));
+                }
+            }else {
+                for (int i = 0; i < totalQuantityOfTickets; i++) {
+                    cart.addTicket(new TimeTicket(false, choose));
+                }
+            }
 
+            System.out.println("Dodawno do koszyka");
+
+        } catch (IllegalArgumentException e) {
+            System.out.println("Błąd systemu - " + e.getMessage() + " skontaktuj się z obsługą techniczną");
+        }
     }
 
-    private int getQuantityFromUser(){
+    private int getTotalQuantityFromUser() {
         System.out.println("Podaj ilość");
         Scanner in = new Scanner(System.in);
         int quantity = in.nextInt();
@@ -81,7 +133,7 @@ public class UserInterface {
         return quantity;
     }
 
-    private int getQuantityOfReliefTicketsFromUser(){
+    private int getQuantityOfReliefTicketsFromUser() {
 
         System.out.println("Podaj ilość biletów ulgowych");
         Scanner in = new Scanner(System.in);
@@ -108,11 +160,17 @@ public class UserInterface {
 
     }
 
-    private void displaymenu() {
-        System.out.println("Wybierz jaki bilet chcesz kupić");
+    private void displayMenu() {
+
+        System.out.println("wybierz 0 aby wyświetlić koszyk");
 
         System.out.println("Wybierz 1 aby wybrać bilet czasowy");
         System.out.println("Wybierz 2 aby wybrać bilety jednorazowe");
+
+        System.out.println("Wybierz 3 aby przejść do płatności");
+
+        System.out.println("Wybierz 4 aby zrezygnować z zakupu");
+
     }
 
 }

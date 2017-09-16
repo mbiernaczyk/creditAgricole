@@ -21,4 +21,24 @@ public class Cart {
     public void removeTicket(Ticket ticketToRemove){
         ticketsList.remove(ticketToRemove);
     }
+
+    public void displayCart() {
+
+        double sum = 0;
+
+        if(ticketsList.size() <= 0){
+            System.out.println("Nie dodano żadnych biletów do koszyka");
+            System.out.println("Do zapłaty "+ sum+"zł");
+        }else {
+            for (Ticket ticket : ticketsList) {
+                System.out.println(ticket.getName() + ticket.getPrice() + "zł");
+                sum += ticket.getPrice();
+            }
+            System.out.println("Do zapłaty "+ sum +"zł");
+        }
+    }
+
+    public void removeAllTickets() {
+        ticketsList.clear();
+    }
 }

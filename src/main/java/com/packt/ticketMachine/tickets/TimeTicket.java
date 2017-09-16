@@ -30,15 +30,35 @@ public class TimeTicket extends Ticket {
         }
     }
 
-    public TimeTicket( boolean relief,TypeOfTimeTicket typeOfTimeTicket) {
+    public TimeTicket( boolean relief, int codeOfType) {
         super(relief);
-        this.typeOfTimeTicket = typeOfTimeTicket;
 
+        switch (codeOfType){
+            case 1:
+                this.typeOfTimeTicket = TypeOfTimeTicket.HALFHOUR;
+                break;
+            case 2:
+                this.typeOfTimeTicket = TypeOfTimeTicket.HOUR;
+                break;
+            case 3:
+                this.typeOfTimeTicket = TypeOfTimeTicket.ONEANDHALFHOUR;
+                break;
+            case 4:
+                this.typeOfTimeTicket = TypeOfTimeTicket.TWENTYFOURHOURS;
+                break;
+            default:
+                throw new IllegalArgumentException("Nie poprawny kod biletu");
+
+        }
     }
 
     @Override
     public double getPrice() {
         return super.relief ? this.typeOfTimeTicket.getPrice()*0.65:this.typeOfTimeTicket.getPrice();
+    }
+
+    public String getName() {
+        return typeOfTimeTicket.getName();
     }
 
 }

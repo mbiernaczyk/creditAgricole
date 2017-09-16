@@ -28,13 +28,27 @@ public class SingleTicket extends Ticket {
         }
     }
 
-    public SingleTicket(boolean relief, TypeOfSingleTicket type) {
+    public SingleTicket(boolean relief, int codeOfType) {
         super(relief);
-        this.type = type;
+
+        switch (codeOfType){
+            case 1:
+                this.type = TypeOfSingleTicket.NORMAL;
+                break;
+            case 2:
+                this.type = TypeOfSingleTicket.SPECIAL;
+                break;
+            default:
+                throw new IllegalArgumentException("Nie poprawny kod biletu");
+        }
     }
 
     @Override
     public double getPrice() {
         return super.relief ? this.type.getPrice()*0.65 : this.type.getPrice();
+    }
+
+    public String getName() {
+        return type.getName();
     }
 }

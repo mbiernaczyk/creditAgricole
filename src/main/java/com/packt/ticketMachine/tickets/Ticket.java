@@ -18,5 +18,6 @@ public abstract class Ticket {
 
     abstract public double getPrice();
 
-    ;
+    public abstract String getName();
+
 }
