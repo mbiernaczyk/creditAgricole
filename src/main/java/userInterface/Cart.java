@@ -24,21 +24,31 @@ public class Cart {
 
     public void displayCart() {
 
-        double sum = 0;
-
         if(ticketsList.size() <= 0){
-            System.out.println("Nie dodano żadnych biletów do koszyka");
-            System.out.println("Do zapłaty "+ sum+"zł");
+            System.out.println("Nie dodano żadnych biletów do koszyka\n");
         }else {
             for (Ticket ticket : ticketsList) {
                 System.out.format("%s %.2f %s %n", ticket.getName(), ticket.getPrice(), "zł");
-                sum += ticket.getPrice();
             }
-            System.out.format("%s %.2f %s %n", "Do zapłaty ", sum ,"zł");
+            displaySumToPay();
         }
     }
 
     public void removeAllTickets() {
         ticketsList.clear();
+    }
+
+    public double calculateSum(){
+        double sum = 0;
+        for (Ticket ticket : ticketsList) {
+            sum += ticket.getPrice();
+        }
+        return sum;
+
+    }
+
+    public void displaySumToPay() {
+        System.out.format("%s %.2f %s %n", "Do zapłaty ", calculateSum() ,"zł");
+
     }
 }

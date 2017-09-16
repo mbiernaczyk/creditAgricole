@@ -6,6 +6,7 @@ import com.packt.ticketMachine.tickets.TicketsContainer;
 import com.packt.ticketMachine.tickets.TimeTicket;
 import com.sun.javaws.exceptions.InvalidArgumentException;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -22,8 +23,7 @@ public class UserInterface {
     public void start() {
         System.out.println("Witom Pana użytkownika\n");
 
-        boolean stopWorking = false;
-        while (!stopWorking) {
+        while (true) {
             displayMenu();
 
             Scanner in = new Scanner(System.in);
@@ -65,12 +65,13 @@ public class UserInterface {
                         break;
 
                     case 3:
-                        //TO DO PŁĄTNOŚC
+                        cart.displaySumToPay();
+                        Payment payment = new Payment(cart);
+                        payment.receiveCoin();
                         break;
 
                     case 4:
                         cart.removeAllTickets();
-                        stopWorking = true;
                         break;
 
                     default:
@@ -85,7 +86,6 @@ public class UserInterface {
     }
 
     private void addSingleTicketToCart(int totalQuantity, int quantityOfReliefTickets, int choose) {
-
         try {
             switch (choose) {
 
@@ -123,9 +123,12 @@ public class UserInterface {
             }
         } catch (IllegalArgumentException e) {
             System.out.println("Błąd systemu - " + e.getMessage() + " skontaktuj się z obsługą techniczną");
+        } catch (InputMismatchException e){
+            System.out.println("Nie poprawna wartość - spróbuj ponownie");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
     }
 
 
@@ -148,6 +151,7 @@ public class UserInterface {
                         System.out.println("Dodawno do koszyka");
                     } else throw new Exception("Wymagana ilość biletów nie jest dostępna");
                     break;
+
                 case 2:
                     if (totalQuantityOfTickets < TicketsContainer.getTimeOneHour()) {
                         if (quantityOfReliefTickets > 0) {
@@ -161,6 +165,7 @@ public class UserInterface {
                         System.out.println("Dodawno do koszyka");
                     } else throw new Exception("Wymagana ilość biletów nie jest dostępna");
                     break;
+
                 case 3:
                     if (totalQuantityOfTickets < TicketsContainer.getTimeOneAndHalfHour()) {
                         if (quantityOfReliefTickets > 0) {
@@ -174,6 +179,7 @@ public class UserInterface {
                         System.out.println("Dodawno do koszyka");
                     } else throw new Exception("Wymagana ilość biletów nie jest dostępna");
                     break;
+
                 case 4:
                     if (totalQuantityOfTickets < TicketsContainer.getTimeTwentyfourHours()) {
                         if (quantityOfReliefTickets > 0) {
@@ -190,12 +196,14 @@ public class UserInterface {
             }
         } catch (IllegalArgumentException e) {
             System.out.println("Błąd systemu - " + e.getMessage() + " skontaktuj się z obsługą techniczną");
+        } catch (InputMismatchException e){
+            System.out.println("Nie poprawna wartość - spróbuj ponownie");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    private int getTotalQuantityFromUser() {
+    private int getTotalQuantityFromUser() throws InputMismatchException {
         System.out.println("Podaj ilość");
         Scanner in = new Scanner(System.in);
         int quantity = in.nextInt();
@@ -203,12 +211,13 @@ public class UserInterface {
         return quantity;
     }
 
-    private int getQuantityOfReliefTicketsFromUser() {
+    private int getQuantityOfReliefTicketsFromUser() throws InputMismatchException {
 
-        System.out.println("Podaj ilość biletów ulgowych");
-        Scanner in = new Scanner(System.in);
-        int quantityOfRelief = in.nextInt();
-        return quantityOfRelief;
+            System.out.println("Podaj ilość biletów ulgowych");
+            Scanner in = new Scanner(System.in);
+            int quantityOfRelief = in.nextInt();
+
+            return quantityOfRelief;
     }
 
 

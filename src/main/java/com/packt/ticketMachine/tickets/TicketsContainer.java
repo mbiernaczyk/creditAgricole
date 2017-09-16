@@ -7,7 +7,7 @@ public class TicketsContainer {
 
     // I assume the relief is printed on ticket by the machine so we don't have to have 2x more tickets in machine physically
 
-    static int singleNormal = 1;
+    static int singleNormal = 100;
     static int singleSpecial = 100;
 
     static int timeHalfHour = 100;
