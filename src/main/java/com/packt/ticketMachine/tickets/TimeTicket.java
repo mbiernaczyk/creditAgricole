@@ -5,46 +5,28 @@ package com.packt.ticketMachine.tickets;
  */
 public class TimeTicket extends Ticket {
 
-    private TypeOfTimeTicket typeOfTimeTicket;
+    private TypeOfTimeTicket type;
 
-    public enum TypeOfTimeTicket {
-        HALFHOUR(" bilet 30 minutowy ",Prices.getTime30Minutes()),
-        HOUR("bilet 60 minutowy ",Prices.getTime60Minutes()),
-        ONEANDHALFHOUR(" bilet 90 minutowy ",Prices.getTime90Minutes()),
-        TWENTYFOURHOURS(" bilet 24 godzinny ",Prices.getTime24Hours());
-
-        private final String name;
-        private final double price;
-
-        TypeOfTimeTicket(String name, double price){
-            this.name=name;
-            this.price=price;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public double getPrice() {
-            return price;
-        }
-    }
-
-    public TimeTicket( boolean relief, int codeOfType) {
+    public TimeTicket(boolean relief, int codeOfType) throws Exception {
         super(relief);
 
-        switch (codeOfType){
+        switch (codeOfType) {
             case 1:
-                this.typeOfTimeTicket = TypeOfTimeTicket.HALFHOUR;
+                TicketsContainer.decreaseTimeHalfHour();
+                this.type = TypeOfTimeTicket.HALFHOUR;
                 break;
             case 2:
-                this.typeOfTimeTicket = TypeOfTimeTicket.HOUR;
+                TicketsContainer.decreaseTimeOneHour();
+                this.type = TypeOfTimeTicket.HOUR;
                 break;
             case 3:
-                this.typeOfTimeTicket = TypeOfTimeTicket.ONEANDHALFHOUR;
+                TicketsContainer.decreaseOneAndHalfHour();
+                this.type = TypeOfTimeTicket.ONEANDHALFHOUR;
                 break;
             case 4:
-                this.typeOfTimeTicket = TypeOfTimeTicket.TWENTYFOURHOURS;
+                TicketsContainer.decreaseTwentyfourHours();
+                this.type = TypeOfTimeTicket.TWENTYFOURHOURS;
+
                 break;
             default:
                 throw new IllegalArgumentException("Nie poprawny kod biletu");
@@ -54,11 +36,34 @@ public class TimeTicket extends Ticket {
 
     @Override
     public double getPrice() {
-        return super.relief ? this.typeOfTimeTicket.getPrice()*0.65:this.typeOfTimeTicket.getPrice();
+        return super.relief ? this.type.getPrice() * 0.65 : this.type.getPrice();
     }
 
     public String getName() {
-        return typeOfTimeTicket.getName();
+        return type.getName();
+    }
+
+    public enum TypeOfTimeTicket {
+        HALFHOUR("bilet 30 minutowy", Prices.getTime30Minutes()),
+        HOUR("bilet 60 minutowy", Prices.getTime60Minutes()),
+        ONEANDHALFHOUR("bilet 90 minutowy", Prices.getTime90Minutes()),
+        TWENTYFOURHOURS("bilet 24 godzinny", Prices.getTime24Hours());
+
+        private final String name;
+        private final double price;
+
+        TypeOfTimeTicket(String name, double price) {
+            this.name = name;
+            this.price = price;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public double getPrice() {
+            return price;
+        }
     }
 
 }

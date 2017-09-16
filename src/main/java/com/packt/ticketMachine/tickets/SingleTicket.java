@@ -7,9 +7,35 @@ public class SingleTicket extends Ticket {
 
     private TypeOfSingleTicket type;
 
-    public enum TypeOfSingleTicket{
-        NORMAL(" bilet normalny ",Prices.getSingleNormal()),
-        SPECIAL(" bilet specjalny ",Prices.getSingleSpecial()),;
+    public SingleTicket(boolean relief, int codeOfType) throws Exception {
+        super(relief);
+
+        switch (codeOfType) {
+            case 1:
+                TicketsContainer.decreaseSingleNormal();
+                this.type = TypeOfSingleTicket.NORMAL;
+                break;
+            case 2:
+                TicketsContainer.decreaseSingleSpecial();
+                this.type = TypeOfSingleTicket.SPECIAL;
+                break;
+            default:
+                throw new IllegalArgumentException("Nie poprawny kod biletu");
+        }
+    }
+
+    @Override
+    public double getPrice() {
+        return super.relief ? this.type.getPrice() * 0.65 : this.type.getPrice();
+    }
+
+    public String getName() {
+        return type.getName();
+    }
+
+    public enum TypeOfSingleTicket {
+        NORMAL("bilet normalny", Prices.getSingleNormal()),
+        SPECIAL("bilet specjalny", Prices.getSingleSpecial()),;
 
         private final String name;
         private final double price;
@@ -26,29 +52,5 @@ public class SingleTicket extends Ticket {
         public double getPrice() {
             return price;
         }
-    }
-
-    public SingleTicket(boolean relief, int codeOfType) {
-        super(relief);
-
-        switch (codeOfType){
-            case 1:
-                this.type = TypeOfSingleTicket.NORMAL;
-                break;
-            case 2:
-                this.type = TypeOfSingleTicket.SPECIAL;
-                break;
-            default:
-                throw new IllegalArgumentException("Nie poprawny kod biletu");
-        }
-    }
-
-    @Override
-    public double getPrice() {
-        return super.relief ? this.type.getPrice()*0.65 : this.type.getPrice();
-    }
-
-    public String getName() {
-        return type.getName();
     }
 }

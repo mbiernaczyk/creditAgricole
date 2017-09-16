@@ -31,10 +31,10 @@ public class Cart {
             System.out.println("Do zapłaty "+ sum+"zł");
         }else {
             for (Ticket ticket : ticketsList) {
-                System.out.println(ticket.getName() + ticket.getPrice() + "zł");
+                System.out.format("%s %.2f %s %n", ticket.getName(), ticket.getPrice(), "zł");
                 sum += ticket.getPrice();
             }
-            System.out.println("Do zapłaty "+ sum +"zł");
+            System.out.format("%s %.2f %s %n", "Do zapłaty ", sum ,"zł");
         }
     }
 

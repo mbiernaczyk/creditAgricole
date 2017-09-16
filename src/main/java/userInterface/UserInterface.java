@@ -2,6 +2,7 @@ package userInterface;
 
 import com.packt.ticketMachine.tickets.Prices;
 import com.packt.ticketMachine.tickets.SingleTicket;
+import com.packt.ticketMachine.tickets.TicketsContainer;
 import com.packt.ticketMachine.tickets.TimeTicket;
 import com.sun.javaws.exceptions.InvalidArgumentException;
 
@@ -30,53 +31,53 @@ public class UserInterface {
             try {
 
                 int choose = in.nextInt();
-                    switch (choose) {
+                switch (choose) {
 
-                        case 0:
-                            cart.displayCart();
-                            break;
+                    case 0:
+                        cart.displayCart();
+                        break;
 
-                        case 1:
-                            displayTimeTickets();
+                    case 1:
+                        displayTimeTickets();
 
-                            choose = in.nextInt();
+                        choose = in.nextInt();
 
-                            if (choose >= 1 && choose <= 4) {
+                        if (choose >= 1 && choose <= 4) {
 
-                                addTimeTicketToCart(getTotalQuantityFromUser(), getQuantityOfReliefTicketsFromUser(), choose);
+                            addTimeTicketToCart(getTotalQuantityFromUser(), getQuantityOfReliefTicketsFromUser(), choose);
 
-                            } else {
-                                throw new InvalidArgumentException(new String[]{"Podano niepoprawną wartość"});
-                            }
-                            break;
+                        } else {
+                            throw new InvalidArgumentException(new String[]{"Podano niepoprawną wartość"});
+                        }
+                        break;
 
-                        case 2:
-                            displaySingleTickets();
+                    case 2:
+                        displaySingleTickets();
 
-                            choose = in.nextInt();
+                        choose = in.nextInt();
 
-                            if (choose == 1 || choose == 2) {
-                                addSingleTicketToCart(getTotalQuantityFromUser(), getQuantityOfReliefTicketsFromUser(), choose);
+                        if (choose == 1 || choose == 2) {
+                            addSingleTicketToCart(getTotalQuantityFromUser(), getQuantityOfReliefTicketsFromUser(), choose);
 
-                            } else {
-                                throw new InvalidArgumentException(new String[]{"Podano niepoprawną wartość"});
-                            }
-                            break;
+                        } else {
+                            throw new InvalidArgumentException(new String[]{"Podano niepoprawną wartość"});
+                        }
+                        break;
 
-                        case 3:
-                            //TO DO PŁĄTNOŚC
-                            break;
+                    case 3:
+                        //TO DO PŁĄTNOŚC
+                        break;
 
-                        case 4:
-                            cart.removeAllTickets();
-                            stopWorking = true;
-                            break;
+                    case 4:
+                        cart.removeAllTickets();
+                        stopWorking = true;
+                        break;
 
-                        default:
+                    default:
                         throw new InvalidArgumentException(new String[]{"Podano niepoprawną wartość"});
-                    }
+                }
             } catch (InvalidArgumentException e) {
-                System.out.println(e.getRealMessage());
+                System.out.println(e.getMessage());
                 System.out.println("Spróbuj ponownie");
             }
 
@@ -84,20 +85,46 @@ public class UserInterface {
     }
 
     private void addSingleTicketToCart(int totalQuantity, int quantityOfReliefTickets, int choose) {
+
         try {
-            if (quantityOfReliefTickets > 0) {
-                for (int i = 0; i < quantityOfReliefTickets; i++) {
-                    cart.addTicket(new SingleTicket(true, choose));
-                }
-            }
-            for (int i = 0; i < totalQuantity - quantityOfReliefTickets; i++) {
-                cart.addTicket(new SingleTicket(false, choose));
-            }
+            switch (choose) {
 
-            System.out.println("Dodawno do koszyka");
+                case 1:
+                    if (totalQuantity < TicketsContainer.getSingleNormal()) {
+                        if (quantityOfReliefTickets > 0) {
+                            for (int i = 0; i < quantityOfReliefTickets; i++) {
+                                cart.addTicket(new SingleTicket(true, choose));
+                            }
+                        }
+                        for (int i = 0; i < totalQuantity - quantityOfReliefTickets; i++) {
+                            cart.addTicket(new SingleTicket(false, choose));
+                        }
 
+                        System.out.println("Dodano do koszyka");
+                    } else throw new Exception("Wymagana ilość biletów nie jest dostępna");
+                    break;
+
+                case 2:
+                    if (totalQuantity < TicketsContainer.getSingleSpecial()) {
+                        if (quantityOfReliefTickets > 0) {
+                            for (int i = 0; i < quantityOfReliefTickets; i++) {
+                                cart.addTicket(new SingleTicket(true, choose));
+                            }
+                        }
+                        for (int i = 0; i < totalQuantity - quantityOfReliefTickets; i++) {
+                            cart.addTicket(new SingleTicket(false, choose));
+                        }
+
+                        System.out.println("Dodano do koszyka");
+                    } else throw new Exception("Wymagana ilość biletów nie jest dostępna");
+                    break;
+
+
+            }
         } catch (IllegalArgumentException e) {
             System.out.println("Błąd systemu - " + e.getMessage() + " skontaktuj się z obsługą techniczną");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -105,23 +132,74 @@ public class UserInterface {
     private void addTimeTicketToCart(int totalQuantityOfTickets, int quantityOfReliefTickets, int choose) {
 
         try {
-            if (quantityOfReliefTickets > 0) {
-                for (int i = 0; i < quantityOfReliefTickets; i++) {
-                    cart.addTicket(new TimeTicket(true, choose));
-                }
-                for (int i = 0; i < totalQuantityOfTickets - quantityOfReliefTickets; i++) {
-                    cart.addTicket(new TimeTicket(false, choose));
-                }
-            }else {
-                for (int i = 0; i < totalQuantityOfTickets; i++) {
-                    cart.addTicket(new TimeTicket(false, choose));
-                }
+
+            switch (choose) {
+
+                case 1:
+                    if (totalQuantityOfTickets < TicketsContainer.getTimeHalfHour()) {
+                        if (quantityOfReliefTickets > 0) {
+                            for (int i = 0; i < quantityOfReliefTickets; i++) {
+                                cart.addTicket(new TimeTicket(true, choose));
+                            }
+
+                        }
+                        for (int i = 0; i < totalQuantityOfTickets; i++) {
+                            cart.addTicket(new TimeTicket(false, choose));
+                        }
+
+                        System.out.println("Dodawno do koszyka");
+                    } else throw new Exception("Wymagana ilość biletów nie jest dostępna");
+                    break;
+                case 2:
+                    if (totalQuantityOfTickets < TicketsContainer.getTimeOneHour()) {
+                        if (quantityOfReliefTickets > 0) {
+                            for (int i = 0; i < quantityOfReliefTickets; i++) {
+                                cart.addTicket(new TimeTicket(true, choose));
+                            }
+
+                        }
+                        for (int i = 0; i < totalQuantityOfTickets; i++) {
+                            cart.addTicket(new TimeTicket(false, choose));
+                        }
+
+                        System.out.println("Dodawno do koszyka");
+                    } else throw new Exception("Wymagana ilość biletów nie jest dostępna");
+                    break;
+                case 3:
+                    if (totalQuantityOfTickets < TicketsContainer.getTimeOneAndHalfHour()) {
+                        if (quantityOfReliefTickets > 0) {
+                            for (int i = 0; i < quantityOfReliefTickets; i++) {
+                                cart.addTicket(new TimeTicket(true, choose));
+                            }
+
+                        }
+                        for (int i = 0; i < totalQuantityOfTickets; i++) {
+                            cart.addTicket(new TimeTicket(false, choose));
+                        }
+
+                        System.out.println("Dodawno do koszyka");
+                    } else throw new Exception("Wymagana ilość biletów nie jest dostępna");
+                    break;
+                case 4:
+                    if (totalQuantityOfTickets < TicketsContainer.getTimeTwentyfourHours()) {
+                        if (quantityOfReliefTickets > 0) {
+                            for (int i = 0; i < quantityOfReliefTickets; i++) {
+                                cart.addTicket(new TimeTicket(true, choose));
+                            }
+
+                        }
+                        for (int i = 0; i < totalQuantityOfTickets; i++) {
+                            cart.addTicket(new TimeTicket(false, choose));
+                        }
+
+                        System.out.println("Dodawno do koszyka");
+                    } else throw new Exception("Wymagana ilość biletów nie jest dostępna");
+                    break;
             }
-
-            System.out.println("Dodawno do koszyka");
-
         } catch (IllegalArgumentException e) {
             System.out.println("Błąd systemu - " + e.getMessage() + " skontaktuj się z obsługą techniczną");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -143,32 +221,29 @@ public class UserInterface {
 
 
     private void displaySingleTickets() {
-        System.out.println("Wybrano bilety jednorazowe");
+        System.out.println("Wybrano bilety jednorazowe\n");
 
-        System.out.println("Wybierz 1 aby wybrać" + SingleTicket.TypeOfSingleTicket.NORMAL.getName() + Prices.getSingleNormal() + "zł");
-        System.out.println("Wybierz 2 aby wybrać" + SingleTicket.TypeOfSingleTicket.SPECIAL.getName() + Prices.getSingleSpecial() + "zł");
+        System.out.println("Wybierz 1 aby wybrać " + SingleTicket.TypeOfSingleTicket.NORMAL.getName() + " " + Prices.getSingleNormal() + " zł");
+        System.out.println("Wybierz 2 aby wybrać " + SingleTicket.TypeOfSingleTicket.SPECIAL.getName() + " " + Prices.getSingleSpecial() + " zł");
 
     }
 
     private void displayTimeTickets() {
-        System.out.println("Wybrano bilety czasowe");
+        System.out.println("Wybrano bilety czasowe\n");
 
-        System.out.println("Wybierz 1 aby wybrać" + TimeTicket.TypeOfTimeTicket.HALFHOUR.getName() + Prices.getTime30Minutes() + "zł");
-        System.out.println("Wybierz 2 aby wybrać" + TimeTicket.TypeOfTimeTicket.HOUR.getName() + Prices.getTime60Minutes() + "zł");
-        System.out.println("Wybierz 3 aby wybrać" + TimeTicket.TypeOfTimeTicket.ONEANDHALFHOUR.getName() + Prices.getTime90Minutes() + "zł");
-        System.out.println("Wybierz 4 aby wybrać" + TimeTicket.TypeOfTimeTicket.TWENTYFOURHOURS.getName() + Prices.getTime24Hours() + "zł");
+        System.out.println("Wybierz 1 aby wybrać " + TimeTicket.TypeOfTimeTicket.HALFHOUR.getName() + " " + Prices.getTime30Minutes() + " zł");
+        System.out.println("Wybierz 2 aby wybrać " + TimeTicket.TypeOfTimeTicket.HOUR.getName() + " " + Prices.getTime60Minutes() + " zł");
+        System.out.println("Wybierz 3 aby wybrać " + TimeTicket.TypeOfTimeTicket.ONEANDHALFHOUR.getName() + " " + Prices.getTime90Minutes() + " zł");
+        System.out.println("Wybierz 4 aby wybrać " + TimeTicket.TypeOfTimeTicket.TWENTYFOURHOURS.getName() + " " + Prices.getTime24Hours() + " zł");
 
     }
 
     private void displayMenu() {
 
         System.out.println("wybierz 0 aby wyświetlić koszyk");
-
         System.out.println("Wybierz 1 aby wybrać bilet czasowy");
         System.out.println("Wybierz 2 aby wybrać bilety jednorazowe");
-
         System.out.println("Wybierz 3 aby przejść do płatności");
-
         System.out.println("Wybierz 4 aby zrezygnować z zakupu");
 
     }
